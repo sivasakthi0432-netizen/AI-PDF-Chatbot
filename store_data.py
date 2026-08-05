@@ -2,6 +2,7 @@ from qdrant_client import QdrantClient
 from qdrant_client.models import VectorParams, Distance
 
 client = QdrantClient(host="localhost", port=6333)
+print(client.get_collections())
 
 COLLECTION_NAME = "pdf_chatbot"
 

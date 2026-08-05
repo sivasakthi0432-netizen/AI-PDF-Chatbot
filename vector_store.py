@@ -1,11 +1,9 @@
 from sentence_transformers import SentenceTransformer
+from qdrant_client.models import PointStruct
 from store_data import get_qdrant_client, COLLECTION_NAME
 
 model = SentenceTransformer("all-MiniLM-L6-v2")
-
 client = get_qdrant_client()
-
-COLLECTION_NAME = "pdf_chatbot"
 
 def store_vectors(chunks):
     texts = [chunk.page_content for chunk in chunks]
@@ -14,11 +12,13 @@ def store_vectors(chunks):
     points = []
 
     for i, (text, embedding) in enumerate(zip(texts, embeddings)):
-        points.append({
-            "id": i,
-            "vector": embedding.tolist(),
-            "payload": {"text": text}
-        })
+        points.append(
+            PointStruct(
+                id=i,
+                vector=embedding.tolist(),
+                payload={"text": text}
+            )
+        )
 
     client.upsert(
         collection_name=COLLECTION_NAME,

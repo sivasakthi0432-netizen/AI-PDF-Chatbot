@@ -10,9 +10,9 @@ from retriever import ask_question
 st.set_page_config(
     page_title="AI PDF Chatbot",
     page_icon="🤖",
-    layout="wide"
+    layout="wide",
+    initial_sidebar_state="collapsed"
 )
-
 # --------------------------------------------------
 # Session State
 # --------------------------------------------------
@@ -61,10 +61,14 @@ h1,h2,h3,h4,h5,h6,p,label{
     padding:10px;
 }
 
-/* Hide Streamlit menu */
-#MainMenu{visibility:hidden;}
-footer{visibility:hidden;}
-header{visibility:hidden;}
+/* Hide only menu and footer */
+#MainMenu {
+    visibility: hidden;
+}
+
+footer {
+    visibility: hidden;
+}
 
 </style>
 """, unsafe_allow_html=True)
